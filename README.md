@@ -100,11 +100,13 @@ $masterSiteName = "Beaconstat";
 ```php
 <?php
 return array (
-    "TelegramKey1",
-	"TelegramKey2",
-	"..."
+  "TelegramKey1",
+  "TelegramKey2",
+  "..."
 );
 ```
+- Upload the result to your preferred host
+
 ## External contributors
 - SimpleXLSX php class v0.6.8 by [Sergey Schuchkin](http://www.sibvision.ru)
 - DB_Backup by [daniloaz](https://github.com/daniloaz/myphp-backup)
