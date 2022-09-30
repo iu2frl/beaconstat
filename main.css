@@ -1,0 +1,141 @@
+.button {
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 200px;
+  height: 50px;
+}
+
+.button:hover {
+  background-color: #4CAF50;
+  /* Green */
+  color: white;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 1300px) {
+  .collapse {
+    display: none;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0 auto 0 auto;
+  margin-bottom: 10px;
+  border: 0px solid;
+  text-align: center;
+}
+
+th,
+td {
+  padding: 5px;
+}
+
+p {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+}
+
+.label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.intestazione {
+  background-color: lightyellow;
+  box-shadow: -5px 0px 0px 0px lightyellow, 5px 0px 0px 0px lightyellow;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  box-shadow: -5px 0px 0px 0px #f2f2f2, 5px 0px 0px 0px #f2f2f2;
+}
+
+tr:nth-child(even):td {
+  box-shadow: -5px 0px 0px 0px #f2f2f2, 5px 0px 0px 0px #f2f2f2;
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

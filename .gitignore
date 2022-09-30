@@ -1,0 +1,6 @@
+admin/myphp-backup-files/*.gz
+admin/xls/uploads/*.xls
+admin/xls/uploads/*.xlsx
+*.sql
+config/bs_config.php
+api/keys.php
