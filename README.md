@@ -25,9 +25,11 @@ This project was originally developed by IU3GNB and [IU2FRL](https://github.com/
 - [x] Protected by reCAPTCHA V3
 - [x] Database duplicates and empty rows check
 - [x] Backups of beacons and reports
-- [x] Supports multiples languages in index.php 
-- [x] Supports importing XLS files from ARI website
-- [ ] Supports multiples languages across website
+- Multiple languages support
+  - [x] Language selection in index.php 
+  - [x] Language change in index.php
+  - [ ] Language change site-wide
+- [x] Supports importing XLS files from [ARI](http://ari.it/beacons.html) website
 - [ ] Telegram control via Bot API
 - [ ] Automatic bad words filtering
 - [ ] Importing CSV from [BeaconSpotUK](https://www.beaconspot.uk/home.php)
