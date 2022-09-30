@@ -1,4 +1,6 @@
 # The Beaconstat project
+A powerful and lightweight amateur radio beacon indexer supporting reports listing and custom beacon add by mainteners
+
 ## Credits
 This project was originally developed by IU3GNB and [IU2FRL](https://github.com/iu2frl/) in 2019 (yes, the pandemic year)
 
