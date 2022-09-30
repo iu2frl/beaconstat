@@ -107,6 +107,9 @@ return array (
 ```
 - Upload the result to your preferred host
 
+## Final result
+Final result can be seen here: [IU2FRL Beaconstat project](https://www.iu2frl.it/moduli-utili/beaconstat/)
+
 ## External contributors
 - SimpleXLSX php class v0.6.8 by [Sergey Schuchkin](http://www.sibvision.ru)
 - DB_Backup by [daniloaz](https://github.com/daniloaz/myphp-backup)
