@@ -111,3 +111,6 @@ return array (
 - SimpleXLSX php class v0.6.8 by [Sergey Schuchkin](http://www.sibvision.ru)
 - DB_Backup by [daniloaz](https://github.com/daniloaz/myphp-backup)
 - reCAPTCHA v3 by [Google](https://developers.google.com/recaptcha/docs/v3)
+
+## License
+This project has been released under the [GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007](./LICENSE)
