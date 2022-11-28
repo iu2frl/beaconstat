@@ -42,6 +42,10 @@ $sheetNames = $xlsx->sheetNames();
 if ($sheetNames) {
     // Preparazione messaggio Telegram
     $telegramMessage = "";
+    // Preparazione contatori statistiche
+    $bcnAdded = 0;
+    $bcnUpdated = 0;
+    $bcnSkipped = 0;
     
     // Ciclo per ogni foglio
     foreach ($sheetNames as $index => $name) {
@@ -59,6 +63,7 @@ if ($sheetNames) {
                 if ($qrg<(double)50.0) {
                     // Controllo che la frequenza sia almeno dei 6m
                     HtmlPrint("Beacon: " . $callsign . " is invalid and will be skipped");
+                    $bcnSkipped += 1;
                 } else {
                     $band = floor($qrg);
                     $qth = substr(strval($fields[2]), 0, 20);
@@ -95,15 +100,22 @@ if ($sheetNames) {
                         // Il beacon esiste, aggiorno
                         HtmlPrint("Beacon: " . $callsign . " on " . $band . "MHz exists and will be updated. Result: " . $updateStmt->execute() . $updateStmt->get_result());
                         $telegramMessage .= "Upd: " . strval($callsign) . "\n";
+                        $bcnUpdated += 1;
                     } else { 
                         // Aggiungo il beacon
                         HtmlPrint("Beacon: " . $callsign . " on " . $band . "MHz have to be added. Result: " . $insertStmt->execute() . $insertStmt->get_result());
                         $telegramMessage .= "Add: " . strval($callsign) . "\n";
+                        $bcnAdded += 1;
                     }
                 }
             }
         }
     }
+    // Stampa statistiche
+    $bcnStats = "Added: " . $bcnAdded . ", Updated: " . $bcnUpdated . ", Skipped: " . $bcnSkipped;
+    echo "<p>" . $bcnStats . "</p>";
+    // Aggiunta statistiche al messaggio
+    $telegramMessage .= "\n" . $bcnStats;
     // Invia risultato finale messaggio
     SendTelegramMessage($telegramMessage);
 } else {
