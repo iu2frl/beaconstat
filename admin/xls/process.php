@@ -94,11 +94,11 @@
 
                     if ($b_count > 0) {
                         // Il beacon esiste, aggiorno
-                        HtmlPrint("Beacon: " . $callsign . " exists and will be updated. Result: " . $updateStmt->execute() . $updateStmt->get_result());
+                        HtmlPrint("Beacon: " . $callsign . " on " . $band . "MHz exists and will be updated. Result: " . $updateStmt->execute() . $updateStmt->get_result());
                         $telegramMessage .= "Upd: " . strval($callsign) . "\n";
                     } else { 
                         // Aggiungo il beacon
-                        HtmlPrint("Beacon: " . $callsign . " have to be added. Result: " . $insertStmt->execute() . $insertStmt->get_result());
+                        HtmlPrint("Beacon: " . $callsign . " on " . $band . "MHz have to be added. Result: " . $insertStmt->execute() . $insertStmt->get_result());
                         $telegramMessage .= "Add: " . strval($callsign) . "\n";
                     }
                 }

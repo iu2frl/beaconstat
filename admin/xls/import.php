@@ -7,6 +7,9 @@ require_once '../../functions.php';
 <head>
     <title>Beacons database importer</title>
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    <?php
+    $mostRecentFile = GetMostRecentFile('uploads');
+    ?>
 </head>
 
 <body>
@@ -18,10 +21,16 @@ require_once '../../functions.php';
     </form>
     <h3>2. Latest uploaded file is:</h3>
     <?php
-    echo GetMostRecentFile('uploads');
+    echo $mostRecentFile;
     ?>
     <h3>3. Start processing</h3>
-    <a href="./process.php"><button>Process <?php echo GetMostRecentFile('uploads'); ?></button></a>
+    <?php
+        if (str_contains($mostRecentFile, "xls")) {
+            echo "<a href=\"./process.php\"><button>Process file " . $mostRecentFile . "</button></a>";
+        } else {
+            echo "No files to process";
+        }
+    ?>
     <br><br>
 
     <a href="../index.php" class="button" style="padding: 0px;"><br>Back</a>

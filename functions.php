@@ -98,7 +98,12 @@ if (!function_exists('GetMostRecentFile')) {
     function GetMostRecentFile($relativePath)
     {
         $files = preg_grep('~\.(xlsx|xls)$~', scandir($relativePath, SCANDIR_SORT_DESCENDING));
-        return $files[0];
+        if ($files) {
+            return $files[0];
+        } else {
+            return "No valid XLS found";
+        }
+        
     }
 }
 

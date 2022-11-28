@@ -4,3 +4,4 @@ admin/xls/uploads/*.xlsx
 *.sql
 config/bs_config.php
 api/keys.php
+.vs/**
