@@ -18,6 +18,10 @@ jobs:
           type: "zip"
           filename: "beaconstat-release.zip"
           exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .*"
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
       - name: Get current time
         uses: josStorer/get-current-time@v2
         id: current-time
