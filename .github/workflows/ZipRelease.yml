@@ -18,6 +18,20 @@ jobs:
           type: "zip"
           filename: "beaconstat-release.zip"
           exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .*"
+      - name: Get current time
+        uses: josStorer/get-current-time@v2
+        id: current-time
+        with:
+          format: YYYYMMDD-HHmmss
+          utcOffset: "+01:00"
+      - name: Use current time
+        env:
+          TIME: "${{ steps.current-time.outputs.time }}"
+          R_TIME: "${{ steps.current-time.outputs.readableTime }}"
+          F_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+          YEAR: "${{ steps.current-time.outputs.year }}"
+          DAY: "${{ steps.current-time.outputs.day }}"
+        run: echo $TIME $R_TIME $F_TIME $YEAR $DAY
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -36,5 +50,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./beaconstat-release.zip.zip
-          asset_name: beaconstat-release.zip.zip
+          asset_name: beaconstat-${{ steps.extract_branch.outputs.branch }}.zip
           asset_content_type: application/zip
