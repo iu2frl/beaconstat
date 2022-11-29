@@ -83,7 +83,7 @@ if (!function_exists('WriteFooter')) {
 if (!function_exists('WriteMapHeader')) {
     function WriteMapHeader()
     {
-        echo "<p style='text-align:center'><b>NOTE:</b>Beacon positioning is calculated based on 6-characters grid square locator, average precision is &plusmn;3Km</p>";
+        echo "<p style='text-align:center'><b>NOTE:</b> Beacon positioning is calculated based on 6-characters grid square locator, average precision is &plusmn;3Km</p>";
     }
 }
 
