@@ -95,13 +95,14 @@ if (!function_exists('WriteMapFooter')) {
 }
 
 if (!function_exists('GetMostRecentFile')) {
-    function GetMostRecentFile($relativePath)
+    function GetMostRecentFile(string $relativePath, string $fileTypes)
     {
-        $files = preg_grep('~\.(xlsx|xls)$~', scandir($relativePath, SCANDIR_SORT_DESCENDING));
+        $rgxTypes = "~\.(" . $fileTypes . ")$~";
+        $files = preg_grep($rgxTypes, scandir($relativePath, SCANDIR_SORT_DESCENDING));
         if ($files) {
             return $files[0];
         } else {
-            return "No valid XLS found";
+            return "No valid files found";
         }
         
     }

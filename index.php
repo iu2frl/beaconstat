@@ -99,6 +99,8 @@ if (sizeof($translAry) <= 1) {
                 <option value="5760" <?php if ($q_band == '5760') echo "SELECTED"; ?>>6cm</option>
                 <option value="10368" <?php if ($q_band == '10368') echo "SELECTED"; ?>>3cm</option>
                 <option value="24048" <?php if ($q_band == '24048') echo "SELECTED"; ?>>1.5cm</option>
+                <option value="47088" <?php if ($q_band == '47088') echo "SELECTED"; ?>>7mm</option>
+                <option value="76032" <?php if ($q_band == '76032') echo "SELECTED"; ?>>4mm</option>
             </select>
         </form>
         <br>

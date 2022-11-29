@@ -33,6 +33,7 @@ This project was originally developed by IU3GNB and [IU2FRL](https://github.com/
 - [ ] Telegram control via Bot API
 - [ ] Automatic bad words filtering
 - [ ] Importing CSV from [BeaconSpotUK](https://www.beaconspot.uk/home.php)
+  - Please note that CSV from this website have no specific standard, `status` is defined as a string and can contain any value
 - [ ] Automatic send of received reports to cluster
 - [ ] Automatic changelog generation
 

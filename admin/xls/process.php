@@ -11,7 +11,7 @@ require_once '../../connect.php';
 require_once '../../functions.php';
 
 // Ottieni il file più recente
-$xlsxFile = "uploads/" . GetMostRecentFile('uploads');
+$xlsxFile = "uploads/" . GetMostRecentFile('uploads', "xls|xlsx");
 
 // Controlla se la tabella del DB esiste
 if (!CheckIfTableExists("bs_beacon")) {
