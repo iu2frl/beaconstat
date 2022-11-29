@@ -10,7 +10,12 @@
     <table>
         <tr>
             <td>
-                <a href="./xls/import.php" class="button"><br>Import beacons list</a>
+                <a href="./xls/import.php" class="button"><br>Import beacons list from ARI XLS</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="./csv/import.php" class="button"><br>Import beacons list from RSGB BeaconSpot</a>
             </td>
         </tr>
         <tr>
