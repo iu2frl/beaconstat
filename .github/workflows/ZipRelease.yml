@@ -17,7 +17,7 @@ jobs:
         with:
           type: "zip"
           filename: "beaconstat-release.zip"
-          exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .*"
+          exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .* *.md"
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -43,7 +43,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.current-time.outputs.formattedTime }}
-          release_name: Release ${{ steps.current-time.outputs.formattedTime }} - Beaconstat - ${{ steps.extract_branch.outputs.branch }}
+          release_name: Release ${{ steps.current-time.outputs.formattedTime }} - Branch ${{ steps.extract_branch.outputs.branch }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
