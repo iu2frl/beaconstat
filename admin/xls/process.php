@@ -30,8 +30,8 @@ HtmlPrint("Opening: " . $xlsxFile);
 $insertStmt = $db->prepare("INSERT INTO bs_beacon (callsign, locator, qrg, band, qth, asl, antenna, mode, qtf, power, status, confirmed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 $insertStmt->bind_param('ssdisisssdii', $callsign, $locator, $qrg, $band, $qth, $asl, $antenna, $mode, $qtf, $power, $status, $confirmed);
 // Preparazione query select
-$selectStmt = $db->prepare("SELECT `id` FROM `bs_beacon` WHERE `callsign`=? ORDER BY `id` DESC LIMIT 1");
-$selectStmt->bind_param('s', $callsign);
+$selectStmt = $db->prepare("SELECT `id` FROM `bs_beacon` WHERE `callsign`=? AND `band`=? ORDER BY `id` DESC LIMIT 1");
+$selectStmt->bind_param('si', $callsign, $band);
 // Preparazione query update
 $updateStmt = $db->prepare("UPDATE bs_beacon SET callsign=?, locator=?, qrg=?, band=?, qth=?, asl=?, antenna=?, mode=?, qtf=?, power=?, status=?, confirmed=? WHERE id=?");
 $updateStmt->bind_param('ssdisisssdiii', $callsign, $locator, $qrg, $band, $qth, $asl, $antenna, $mode, $qtf, $power, $status, $confirmed, $id);
