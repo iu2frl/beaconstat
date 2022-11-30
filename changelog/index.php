@@ -15,7 +15,7 @@
 
     ?>
     <br><br>
-    <p>This file was automatically parsed from the README.md file using <a href="https://github.com/erusev/parsedown">erusev/parsedown</a> class</p>
+    <h6>This file was automatically parsed from the README.md file using <a href="https://github.com/erusev/parsedown">erusev/parsedown</a> class</h6>
 </body>
 
 </html>

@@ -146,7 +146,7 @@ if (!function_exists('DrawBeaconsTable')) {
         }
 
         // Preparazione query
-        $stmt = $db->prepare("SELECT * FROM `bs_beacon` WHERE `band`=? AND `confirmed`=?");
+        $stmt = $db->prepare("SELECT * FROM `bs_beacon` WHERE `band`=? AND `confirmed`=? ORDER BY `qrg` ASC");
         if ($stmt == FALSE) {
             PrintAndDie("Errore nella preparazione della QUERY");
         } else {

@@ -3,6 +3,9 @@
 
 ### 2022/11/30
 - Added manual `CHANGELOG.md`
+- Added changelog parser
+- Improved `index.php` footer
+- Set default query of `index.php` to `ORDER BY 'qrg' ASC`
 
 ### 2022/11/29
 - Added import from RSGB Beacons CSV
