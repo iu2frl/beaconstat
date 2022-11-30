@@ -73,13 +73,6 @@ if (!function_exists('PrintAndDie')) {
     }
 }
 
-if (!function_exists('WriteFooter')) {
-    function WriteFooter($footerTransl)
-    {
-        echo '<p>' . $footerTransl .  '&nbsp;<a href="https://www.iu2frl.it/contatti/">webmaster</a></p>';
-    }
-}
-
 if (!function_exists('WriteMapHeader')) {
     function WriteMapHeader()
     {

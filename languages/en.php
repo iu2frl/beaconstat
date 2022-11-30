@@ -28,7 +28,7 @@ return array(
     'trComment' => 'Comment: ',
     'trDate' => 'Date: ',
     'trNoBeaconFound' => 'No beacons found with these parameters',
-    'trFooter' => 'Created by IU2FRL and IU3GNB on 2020, all rights reserved.<br>Last revision 09/2022. Please report issues to'
+    'trFooter' => 'Created by IU2FRL and IU3GNB on 2020'
 );
 
 // $storage_lang = gzcompress( serialize( $lang ) );

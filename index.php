@@ -128,7 +128,13 @@ if (sizeof($translAry) <= 1) {
             </tr>
         </table>
         <br>
-        <?php WriteFooter($translAry["trFooter"]) ?>
+        <?php
+            echo '<p>' . $translAry["trFooter"] . '</p>';
+            echo '<h6>
+                    This project has been publicly released on <a href="https://github.com/iu2frl/beaconstat">iu2frl/beaconstat</a> under the <a href="./LICENSE">GPL-3.0 license</a><br>
+                    Please report any issue to the <a href="https://www.iu2frl.it/contatti/">webmaster</a> or on <a href="https://github.com/iu2frl/beaconstat">iu2frl/beaconstat</a><br>
+                    Changelog can be found at <a href="./changelog/">this link</a></h6>';
+        ?>
     </div>
 </body>
 
