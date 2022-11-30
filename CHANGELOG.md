@@ -8,6 +8,7 @@
 - Set default query of `index.php` to `ORDER BY 'qrg' ASC`
 - Added locator length check on `analyze_db.php`
 - Improved Telegram notifications when deleting beacon
+- Simplified map handling, it is now a single file
 
 ### 2022/11/29
 - Added import from RSGB Beacons CSV

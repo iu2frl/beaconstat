@@ -13,7 +13,7 @@
     $call =  isset($_GET['call']) ? $_GET['call'] : '';
     $grid =  isset($_GET['loc']) ? $_GET['loc'] : '';
 
-    if (($call == "") && ($grid == "")) {
+    if ($grid == "") {
         $genMap = true;
     } else {
         $genMap = false;
