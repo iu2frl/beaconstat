@@ -125,15 +125,12 @@ if (!function_exists('DrawBeaconsTable')) {
         echo '<tr class=\'intestazione\'>';
         echo '<th style="text-align: left;">' . $translAry["trCallsign"] . '</th>';
         echo '<th colspan="2">' . $translAry["trQth"] . '</th>';
-        echo '<!-- <th>Locatore</th> -->';
         echo '<th>' . $translAry["trQrg"] . '</th>';
         echo '<th>' . $translAry["trQah"] . '</th>';
         echo '<th class="collapse">' . $translAry["trAnt"] . '</th>';
-        echo '<!-- <th>Direzione</th> -->';
         echo '<th class="collapse">' . $translAry["trMode"] . '</th>';
         echo '<th class="collapse">' . $translAry["trPower"] . '</th>';
         echo '<th>' . $translAry["trStatus"] . '</th>';
-        echo '<!-- <th>Report</th> -->';
         echo '<th colspan="3">' . $translAry["trReports"] . '</th>';
         echo '</tr>';
 
