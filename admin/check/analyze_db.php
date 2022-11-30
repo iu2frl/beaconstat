@@ -41,6 +41,35 @@
         }
     }
     ?>
+    <h1>Check for invalid locators</h1>
+    <?php
+        // Preparazione query select
+        $queryStr = "SELECT `id`, `callsign` FROM `bs_beacon` WHERE LENGTH(`locator`) < 6";
+        $selectStmt = $db->prepare($queryStr);
+        // Mostro su quale riga sto lavorando
+        echo "<h3>" . $i . ". Searching for invalid locator field</h3>";
+        // Esecuzione query
+        $selectStmt->execute();
+        // Lettura risultati
+        $selectStmtResult = $selectStmt->get_result();
+        // Conteggio risultati
+        $resultCnt = mysqli_num_rows($selectStmtResult);
+        if ($resultCnt > 0) {
+            // Creo una riga per ogni risultato
+            while ($row = mysqli_fetch_assoc($selectStmtResult)) {
+                echo "<p>Index <a href='../viewreport.php?bid=" .
+                    $row["id"] . "'>" . $row["id"];
+                if ($row["callsign"] != "") {
+                    echo " - " . $row["callsign"];
+                }
+                echo "</a> has an empty locator field, ".
+                "Delete it? <a href='delete.php?bid=" . $row["id"] . "'>yes</a>".
+                "</p>";
+            }
+        } else {
+            echo "<p>No empty values found</p>";
+        }
+    ?>
     <h1>Check for duplicates</h1>
     <?php
     // Array campi tabella SQL
