@@ -112,22 +112,27 @@ if (!function_exists('str_contains')) {
 if (!function_exists('DrawBeaconsTable')) {
     function DrawBeaconsTable($confirmed, $q_band, $translAry, $mobileDevice)
     {
-        echo '<table style="';
+        if (boolval($confirmed)) {
+            $tbName = "confBcnTable";
+        } else {
+            $tbName = "uncnfBcnTable";
+        }
+        echo '<table class="sortable" id="' . $tbName . '" style="';
         if (boolval($mobileDevice)) {
             echo " width='100%'";
         }
         echo '">';
         echo '<tr class=\'intestazione\'>';
         echo '<th style="text-align: left;">' . $translAry["trCallsign"] . '</th>';
-        echo '<th colspan="2">' . $translAry["trQth"] . '</th>';
+        echo '<th onclick="sortTable(1, \'' . $tbName . '\')" colspan="2">' . $translAry["trQth"] . '</th>';
         echo '<!-- <th>Locatore</th> -->';
-        echo '<th>' . $translAry["trQrg"] . '</th>';
-        echo '<th>' . $translAry["trQah"] . '</th>';
-        echo '<th class="collapse">' . $translAry["trAnt"] . '</th>';
+        echo '<th onclick="sortTable(2, \'' . $tbName . '\')">' . $translAry["trQrg"] . '</th>';
+        echo '<th onclick="sortTable(3, \'' . $tbName . '\')">' . $translAry["trQah"] . '</th>';
+        echo '<th onclick="sortTable(4, \'' . $tbName . '\')" class="collapse">' . $translAry["trAnt"] . '</th>';
         echo '<!-- <th>Direzione</th> -->';
-        echo '<th class="collapse">' . $translAry["trMode"] . '</th>';
-        echo '<th class="collapse">' . $translAry["trPower"] . '</th>';
-        echo '<th>' . $translAry["trStatus"] . '</th>';
+        echo '<th onclick="sortTable(5, \'' . $tbName . '\')" class="collapse">' . $translAry["trMode"] . '</th>';
+        echo '<th onclick="sortTable(6, \'' . $tbName . '\')" class="collapse">' . $translAry["trPower"] . '</th>';
+        echo '<th onclick="sortTable(7, \'' . $tbName . '\')">' . $translAry["trStatus"] . '</th>';
         echo '<!-- <th>Report</th> -->';
         echo '<th colspan="3">' . $translAry["trReports"] . '</th>';
         echo '</tr>';

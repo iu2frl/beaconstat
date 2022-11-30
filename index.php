@@ -40,6 +40,7 @@ if (sizeof($translAry) <= 1) {
 <head>
     <title><?php echo $masterSiteName ?></title>
     <link rel="stylesheet" type="text/css" href="./main.css">
+    <script src="./functions.js"></script>
     <?php
 
     if ($enableMobile) {
