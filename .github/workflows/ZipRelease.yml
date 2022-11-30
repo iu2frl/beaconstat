@@ -5,19 +5,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  CreateRelease:
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
-      - name: Checkout latest commit
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Archive Release
-        uses: thedoctor0/zip-release@main
-        with:
-          type: "zip"
-          filename: "beaconstat-release.zip"
-          exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .* *.md"
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -42,17 +37,46 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.current-time.outputs.formattedTime }}
+          tag_name: ${{ steps.extract_branch.outputs.branch }}-${{ steps.current-time.outputs.formattedTime }}
           release_name: Release ${{ steps.current-time.outputs.formattedTime }} - Branch ${{ steps.extract_branch.outputs.branch }}
           draft: false
           prerelease: false
+      - name: Checkout latest commit
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Archive Release
+        uses: thedoctor0/zip-release@main
+        with:
+          type: "zip"
+          filename: "beaconstat-release.zip"
+          exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .* README.md"
       - name: Upload Release Asset
-        id: upload-release-asset
+        id: upload-website-zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./beaconstat-release.zip
-          asset_name: beaconstat-${{ steps.extract_branch.outputs.branch }}.zip
+          asset_name: beaconstat-${{ steps.extract_branch.outputs.branch }}-${{ steps.current-time.outputs.formattedTime }}.zip
           asset_content_type: application/zip
+      - name: Upload Release Asset
+        id: upload-changelog
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ./CHANGELOG.md
+          asset_name: CHANGELOG-${{ steps.extract_branch.outputs.branch }}-${{ steps.current-time.outputs.formattedTime }}.md
+          asset_content_type: application/zip
+      - name: Cleanup of old Releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          #repo: <owner>/<repoName> # defaults to current repo
+          keep_latest: 3
+          delete_tags: false
+          delete_tag_pattern: develop # defaults to ""

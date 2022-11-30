@@ -28,7 +28,7 @@ return array(
     'trComment' => 'Commento: ',
     'trDate' => 'Data: ',
     'trNoBeaconFound' => 'Nessun beacon trovato con questi parametri',
-    'trFooter' => 'Creato da IU2FRL e IU3GNB nel 2020, tutti i diritti sono riservati.<br>Ultima revisione 09/2022. Per segnalare problemi rivolgersi a'
+    'trFooter' => 'Creato da IU2FRL e IU3GNB nel 2020'
 );
 
 // $storage_lang = gzcompress( serialize( $lang ) );

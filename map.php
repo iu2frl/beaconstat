@@ -1,15 +1,33 @@
 <html lang="en">
-<?php
-include_once "./config/bs_config.php";
-?>
 
 <head>
+    <?php
+    include_once "./config/bs_config.php";
+    require_once './functions.php';
+    require_once './connect.php';
+    // Prepare empty title
+    $mapTitle = "";
+    // Define if to show general map or specific one
+    $genMap = true;
+    // Check PHP values from GET
+    $call =  isset($_GET['call']) ? $_GET['call'] : '';
+    $grid =  isset($_GET['loc']) ? $_GET['loc'] : '';
+
+    if ($grid == "") {
+        $genMap = true;
+    } else {
+        $genMap = false;
+    }
+    ?>
+
     <title><?php echo $masterSiteName ?></title>
+
     <link rel="stylesheet" type="text/css" href="./main.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js"></script>
     <script type="text/javascript">
         gridSquareToLatLon = function(grid, obj) {
+            grid = (grid.substr(0, 2)).toUpperCase() + grid.substr(2, 2) + (grid.substr(4, 2)).toLowerCase();
             var returnLatLonConstructor = (typeof(LatLon) === 'function');
             var returnObj = (typeof(obj) === 'object');
             var lat = 0.0,
@@ -47,22 +65,19 @@ include_once "./config/bs_config.php";
         //console.log(urlParams);
         var gridBcn = urlParams.get('loc');
         var callBcn = urlParams.get('call');
-        console.log(gridBcn);
-        console.log(callBcn);
-
-        var appGridBcn = (gridBcn.substr(0, 2)).toUpperCase() + gridBcn.substr(2, 2) + (gridBcn.substr(gridBcn.length - 2)).toLowerCase();
-
-        var coordBcn = gridSquareToLatLon(appGridBcn);
-        //console.log(coordBcn);
-        var bcnLat = coordBcn[0];
-        var bcnLon = coordBcn[1];
-
-        // Posizione iniziale della mappa
-        var mapLat = bcnLat;
-        console.log(bcnLat);
-        var mapLon = bcnLon;
-        console.log(bcnLon);
-        var mapZoom = 10;
+        // Define center point of the map
+        <?php
+        if ($genMap) {
+            echo "var mapLat = 42.000;\n";
+            echo "var mapLon = 13.000;\n";
+            echo "var mapZoom = 6;\n";
+        } else {
+            echo "var tmpBcnCoord = gridSquareToLatLon(\"" . $grid . "\");\n";
+            echo "var mapLat = tmpBcnCoord[0];\n";
+            echo "var mapLon = tmpBcnCoord[1];\n";
+            echo "var mapZoom = 10;\n";
+        }
+        ?>
 
         function init() {
 
@@ -90,42 +105,147 @@ include_once "./config/bs_config.php";
 
             map.setCenter(lonLat, mapZoom);
 
-            var point = new OpenLayers.LonLat(bcnLon, bcnLat).transform(
-                new OpenLayers.Projection("EPSG:4326"),
-                map.getProjectionObject());
+            var vectorLayer = new OpenLayers.Layer.Vector("Overlay");
+            var beaconList = [];
 
-            // Not sure this works
-            var size = new OpenLayers.Size(21, 25);
-            var offset = new OpenLayers.Pixel(-(size.w / 2), -size.h);
-            var icon = new OpenLayers.Icon('./img/marker.svg', size, offset);
-            var markers = new OpenLayers.Layer.Markers("Markers");
-            map.addLayer(markers);
+            <?php
+            if ($genMap) {
+                $stmt = $db->prepare("SELECT `locator`, `qrg`, `callsign`, `band`, `status` FROM `bs_beacon`");
+                if ($stmt == FALSE) {
+                    WaitForPopup("Error preparing query", "./index.php");
+                } else {
+                    if ($stmt == FALSE) {
+                        WaitForPopup("Error binding query", "./index.php");
+                    } else {
+                        $stmt->execute();
+                    }
+                }
 
-            markers.addMarker(new OpenLayers.Marker(point), icon);
+                // controllo l'esito
+                if (!$stmt) {
+                    WaitForPopup("Error executing query", "./index.php");
+                }
 
+                //lista di dizionari con dati dei beacon usata in seguito per creare i marker
+                $b_result = $stmt->get_result();
+
+                if (!$b_result) {
+                    echo "<tr><td colspan='14'>Il database ha riportato ERRORE</td></tr>";
+                } else {
+                    if (mysqli_num_rows($b_result) > 0) {
+                        //nuova versione marker
+                        while ($row = mysqli_fetch_assoc($b_result)) {
+                            if ($row["locator"] != "") {
+                                echo "beaconList.push({locator:'" . $row["locator"] . "', call:'" . $row["callsign"] . "', qrg: '" . $row["qrg"] . "', band: '" . $row["band"] . "', status: '" . $row["status"] . "'});\n";
+                            } else {
+                                // Questo beacon ha locatore invalido, scriviamo qualcosa a log?
+                            }
+                        }
+                    }
+                }
+            } else {
+                $mapTitle = "<h1 style='font-family: Arial; font-weight: bold; text-align: center'>Beacon: ";
+                if ($call == '') {
+                    $mapTitle .= "no-name";
+                } else {
+                    $mapTitle .= $call;
+                }
+                if ($grid != '') {
+                    $mapTitle .= " - Grid Square: " . $grid;
+                } else {
+                    WaitForPopup("Invalid locator, returning to index", "./index.php");
+                }
+                $mapTitle .= "</h1>";
+                echo "beaconList.push({locator:'" . $grid . "', call:'" . $call . "', qrg: '', band: '', status: ''});\n";
+            }
+            ?>
+
+            //creo i marker con i dati del beacon che rappresentano 
+            for (var i = 0; i < beaconList.length; i++) {
+                if ((/[a-zA-Z]/.test(beaconList[i]['locator'].substr(0, 2))) && (/[0-9]/.test(beaconList[i]['locator'].substr(2, 2))) && (/[a-zA-Z]/.test(beaconList[i]['locator'].substr(4, 2)))) {
+                    var coorBcn = gridSquareToLatLon(beaconList[i]['locator'])
+                    <?php
+                    if ($genMap) {
+                        echo "var eGraphic = 'img/m' + beaconList[i]['band'] + '.svg';";
+                    } else {
+                        echo "var eGraphic = 'img/marker.svg';";
+                    }
+                    ?>
+                    var feature = new OpenLayers.Feature.Vector(
+                        new OpenLayers.Geometry.Point(coorBcn[1], coorBcn[0]).transform(new OpenLayers.Projection('EPSG:4326'), map.getProjectionObject()), {
+                            <?php
+                            if ($genMap) {
+                                echo "description: '<strong>' + beaconList[i]['call'] + '</strong><br>QRG: ' + beaconList[i]['qrg'].replace('.', ',') + ' MHz<br>Locator: ' + beaconList[i]['locator'] + '<br>Stato: ' + ((beaconList[i]['status'] == 1) ? 'Attivo' : 'Non Attivo')";
+                            } else {
+                                echo "description: '<strong>' + beaconList[i]['call'] + '</strong><br>Locator: ' + beaconList[i]['locator']";
+                            }
+                            ?>,
+                        }, {
+                            externalGraphic: eGraphic,
+                            graphicHeight: 25,
+                            graphicWidth: 21,
+                            graphicXOffset: -12,
+                            graphicYOffset: -25
+                        }
+                    );
+                    vectorLayer.addFeatures(feature);
+                } else {
+                    console.log("Beacon " + beaconList[i]['call'] + " will be ignored");
+                }
+            }
+
+            //aggiungo layer dei beacon
+            map.addLayer(vectorLayer);
+
+            //creao controllo per gestione pop-up dei singoli marker
+            var controls = {
+                selector: new OpenLayers.Control.SelectFeature(vectorLayer, {
+                    onSelect: createPopup,
+                    onUnselect: destroyPopup
+                })
+            };
+
+            //callback per gestire apertura/chiusura dei pop dei singoli beacon
+            function createPopup(feature) {
+                feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+                    feature.geometry.getBounds().getCenterLonLat(),
+                    null,
+                    '<div class="markerContent">' + feature.attributes.description + '</div>',
+                    null,
+                    true,
+                    function() {
+                        controls['selector'].unselectAll();
+                    }
+                );
+
+                map.addPopup(feature.popup);
+            }
+
+            function destroyPopup(feature) {
+                feature.popup.destroy();
+                feature.popup = null;
+            }
+
+            //registro callback e le attivo
+            map.addControl(controls['selector']);
+            controls['selector'].activate();
         }
     </script>
 </head>
 
 <body onload="init();">
     <?php
-    require_once './functions.php';
-    // Cerca la banda di cui fare la query
-    $call =  isset($_GET['call']) ? $_GET['call'] : '';
-    $grid =  isset($_GET['loc']) ? $_GET['loc'] : '';
-    echo "<h1 style='font-family: Arial; font-weight: bold; text-align: center'>";
-    if ($call == '') {
-        echo "no-name";
-    } else {
-        echo "Beacon: " . $call;
-    }
-    if ($grid != '') {
-        echo " - Grid Square: " . $grid;
-    }
-    echo "</h1>";
+    echo $mapTitle;
+    WriteMapHeader();
     ?>
-    <?php WriteMapHeader(); ?>
     <div style="width:100%; height:85%" id="map"></div>
+    <table>
+        <tr>
+            <td>
+                <a href="./index.php" class="button"><br>Back</a>
+            </td>
+        </tr>
+    </table>
     <?php WriteMapFooter(); ?>
 </body>
 

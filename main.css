@@ -61,6 +61,10 @@ h1 {
   text-align: center;
 }
 
+h6 {
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .intestazione {
   background-color: lightyellow;
   box-shadow: -5px 0px 0px 0px lightyellow, 5px 0px 0px 0px lightyellow;

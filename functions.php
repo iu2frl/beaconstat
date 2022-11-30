@@ -73,13 +73,6 @@ if (!function_exists('PrintAndDie')) {
     }
 }
 
-if (!function_exists('WriteFooter')) {
-    function WriteFooter($footerTransl)
-    {
-        echo '<p>' . $footerTransl .  '&nbsp;<a href="https://www.iu2frl.it/contatti/">webmaster</a></p>';
-    }
-}
-
 if (!function_exists('WriteMapHeader')) {
     function WriteMapHeader()
     {
@@ -119,7 +112,12 @@ if (!function_exists('str_contains')) {
 if (!function_exists('DrawBeaconsTable')) {
     function DrawBeaconsTable($confirmed, $q_band, $translAry, $mobileDevice)
     {
-        echo '<table style="';
+        if (boolval($confirmed)) {
+            $tbName = "confBcnTable";
+        } else {
+            $tbName = "uncnfBcnTable";
+        }
+        echo '<table class="sortable" id="' . $tbName . '" style="';
         if (boolval($mobileDevice)) {
             echo " width='100%'";
         }
@@ -127,15 +125,12 @@ if (!function_exists('DrawBeaconsTable')) {
         echo '<tr class=\'intestazione\'>';
         echo '<th style="text-align: left;">' . $translAry["trCallsign"] . '</th>';
         echo '<th colspan="2">' . $translAry["trQth"] . '</th>';
-        echo '<!-- <th>Locatore</th> -->';
         echo '<th>' . $translAry["trQrg"] . '</th>';
         echo '<th>' . $translAry["trQah"] . '</th>';
         echo '<th class="collapse">' . $translAry["trAnt"] . '</th>';
-        echo '<!-- <th>Direzione</th> -->';
         echo '<th class="collapse">' . $translAry["trMode"] . '</th>';
         echo '<th class="collapse">' . $translAry["trPower"] . '</th>';
         echo '<th>' . $translAry["trStatus"] . '</th>';
-        echo '<!-- <th>Report</th> -->';
         echo '<th colspan="3">' . $translAry["trReports"] . '</th>';
         echo '</tr>';
 
@@ -153,7 +148,7 @@ if (!function_exists('DrawBeaconsTable')) {
         }
 
         // Preparazione query
-        $stmt = $db->prepare("SELECT * FROM `bs_beacon` WHERE `band`=? AND `confirmed`=?");
+        $stmt = $db->prepare("SELECT * FROM `bs_beacon` WHERE `band`=? AND `confirmed`=? ORDER BY `qrg` ASC");
         if ($stmt == FALSE) {
             PrintAndDie("Errore nella preparazione della QUERY");
         } else {
