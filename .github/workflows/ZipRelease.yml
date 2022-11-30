@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ steps.extract_branch.outputs.branch }}-${{ steps.current-time.outputs.formattedTime }}
-          release_name: ${{ github.event.repository.name }} - Release ${{ steps.current-time.outputs.formattedTime }} - Branch ${{ steps.extract_branch.outputs.branch }}
+          release_name: Release ${{ steps.current-time.outputs.formattedTime }} - Branch ${{ steps.extract_branch.outputs.branch }}
           draft: false
           prerelease: false
       - name: Checkout latest commit
@@ -59,7 +59,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./beaconstat-release.zip
-          asset_name: beaconstat-${{ steps.extract_branch.outputs.branch }}.zip
+          asset_name: beaconstat-${{ steps.extract_branch.outputs.branch }}-${{ steps.current-time.outputs.formattedTime }}.zip
           asset_content_type: application/zip
       - name: Upload Release Asset
         id: upload-changelog
@@ -69,7 +69,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./CHANGELOG.md
-          asset_name: CHANGELOG.md
+          asset_name: CHANGELOG-${{ steps.extract_branch.outputs.branch }}-${{ steps.current-time.outputs.formattedTime }}.md
           asset_content_type: application/zip
       - name: Cleanup of old Releases
         uses: dev-drprasad/delete-older-releases@v0.2.0
