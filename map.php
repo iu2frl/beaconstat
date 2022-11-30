@@ -1,9 +1,25 @@
 <html lang="en">
-<?php
-include_once "./config/bs_config.php";
-?>
 
 <head>
+    <?php
+    include_once "./config/bs_config.php";
+    require_once './functions.php';
+    require_once './connect.php';
+    // Prepare empty title
+    $mapTitle = "";
+    // Define if to show general map or specific one
+    $genMap = true;
+    // Check PHP values from GET
+    $call =  isset($_GET['call']) ? $_GET['call'] : '';
+    $grid =  isset($_GET['loc']) ? $_GET['loc'] : '';
+
+    if (($call == "") && ($grid == "")) {
+        $genMap = true;
+    } else {
+        $genMap = false;
+    }
+    ?>
+
     <title><?php echo $masterSiteName ?></title>
 
     <link rel="stylesheet" type="text/css" href="./main.css">
@@ -11,6 +27,7 @@ include_once "./config/bs_config.php";
     <script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/2.13.1/OpenLayers.js"></script>
     <script type="text/javascript">
         gridSquareToLatLon = function(grid, obj) {
+            grid = (grid.substr(0, 2)).toUpperCase() + grid.substr(2, 2) + (grid.substr(4, 2)).toLowerCase();
             var returnLatLonConstructor = (typeof(LatLon) === 'function');
             var returnObj = (typeof(obj) === 'object');
             var lat = 0.0,
@@ -48,11 +65,19 @@ include_once "./config/bs_config.php";
         //console.log(urlParams);
         var gridBcn = urlParams.get('loc');
         var callBcn = urlParams.get('call');
-
-        // Posizione iniziale della mappa
-        var mapLat = 42.000;
-        var mapLon = 13.000;
-        var mapZoom = 6;
+        // Define center point of the map
+        <?php
+        if ($genMap) {
+            echo "var mapLat = 42.000;\n";
+            echo "var mapLon = 13.000;\n";
+            echo "var mapZoom = 6;\n";
+        } else {
+            echo "var tmpBcnCoord = gridSquareToLatLon(\"" . $grid . "\");\n";
+            echo "var mapLat = tmpBcnCoord[0];\n";
+            echo "var mapLon = tmpBcnCoord[1];\n";
+            echo "var mapZoom = 10;\n";
+        }
+        ?>
 
         function init() {
 
@@ -84,22 +109,6 @@ include_once "./config/bs_config.php";
             var beaconList = [];
 
             <?php
-            require_once './functions.php';
-            require_once './connect.php';
-            // Prepare empty title
-            $mapTitle = "";
-            // Define if to show general map or specific one
-            $genMap = true;
-            // Check PHP values from GET
-            $call =  isset($_GET['call']) ? $_GET['call'] : '';
-            $grid =  isset($_GET['loc']) ? $_GET['loc'] : '';
-
-            if (($call == "") && ($grid == "")) {
-                $genMap = true;
-            } else {
-                $genMap = false;
-            }
-
             if ($genMap) {
                 $stmt = $db->prepare("SELECT `locator`, `qrg`, `callsign`, `band`, `status` FROM `bs_beacon`");
                 if ($stmt == FALSE) {
@@ -153,15 +162,14 @@ include_once "./config/bs_config.php";
 
             //creo i marker con i dati del beacon che rappresentano 
             for (var i = 0; i < beaconList.length; i++) {
-                var appGridBcn = (beaconList[i]['locator'].substr(0, 2)).toUpperCase() + beaconList[i]['locator'].substr(2, 2) + (beaconList[i]['locator'].substr(4, 2)).toLowerCase();
-                if ((/[a-zA-Z]/.test(appGridBcn.substr(0, 2))) && (/[0-9]/.test(appGridBcn.substr(2, 2))) && (/[a-zA-Z]/.test(appGridBcn.substr(4, 2)))) {
-                    var coorBcn = gridSquareToLatLon(appGridBcn)
+                if ((/[a-zA-Z]/.test(beaconList[i]['locator'].substr(0, 2))) && (/[0-9]/.test(beaconList[i]['locator'].substr(2, 2))) && (/[a-zA-Z]/.test(beaconList[i]['locator'].substr(4, 2)))) {
+                    var coorBcn = gridSquareToLatLon(beaconList[i]['locator'])
                     <?php
-                        if ($genMap) {
-                            echo "var eGraphic = 'img/m' + beaconList[i]['band'] + '.svg';";
-                        } else {
-                            echo "var eGraphic = 'img/marker.svg';";
-                        }
+                    if ($genMap) {
+                        echo "var eGraphic = 'img/m' + beaconList[i]['band'] + '.svg';";
+                    } else {
+                        echo "var eGraphic = 'img/marker.svg';";
+                    }
                     ?>
                     var feature = new OpenLayers.Feature.Vector(
                         new OpenLayers.Geometry.Point(coorBcn[1], coorBcn[0]).transform(new OpenLayers.Projection('EPSG:4326'), map.getProjectionObject()), {
@@ -172,8 +180,7 @@ include_once "./config/bs_config.php";
                                 echo "description: '<strong>' + beaconList[i]['call'] + '</strong><br>Locator: ' + beaconList[i]['locator']";
                             }
                             ?>,
-                        },
-                        {
+                        }, {
                             externalGraphic: eGraphic,
                             graphicHeight: 25,
                             graphicWidth: 21,
