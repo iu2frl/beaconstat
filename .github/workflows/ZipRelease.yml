@@ -17,7 +17,7 @@ jobs:
         with:
           type: "zip"
           filename: "beaconstat-release.zip"
-          exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .* *.md"
+          exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .* README.md"
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
