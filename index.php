@@ -123,7 +123,7 @@ if (sizeof($translAry) <= 1) {
                     <a href="./latestspot.php" class="button"><?php echo $translAry["trLatestSpots"] ?></a>
                 </td>
                 <td>
-                    <a href="./mapfull.php" class="button"><?php echo $translAry["trBeaconMap"] ?></a>
+                    <a href="./map.php" class="button"><?php echo $translAry["trBeaconMap"] ?></a>
                 </td>
             </tr>
         </table>

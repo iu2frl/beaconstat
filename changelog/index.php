@@ -16,6 +16,14 @@
     ?>
     <br><br>
     <h6>This file was automatically parsed from the README.md file using <a href="https://github.com/erusev/parsedown">erusev/parsedown</a> class</h6>
+
+    <table>
+        <tr>
+            <td>
+                <a href="../index.php" class="button"><br>Back</a>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
