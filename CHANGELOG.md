@@ -7,7 +7,7 @@
 - Improved `index.php` footer
 - Set default query of `index.php` to `ORDER BY 'qrg' ASC`
 - Added locator length check on `analyze_db.php`
-- Backup is now automatically performed before any import
+- Improved Telegram notifications when deleting beacon
 
 ### 2022/11/29
 - Added import from RSGB Beacons CSV
