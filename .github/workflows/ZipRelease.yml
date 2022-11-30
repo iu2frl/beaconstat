@@ -56,7 +56,7 @@ jobs:
           filename: "beaconstat-release.zip"
           exclusions: "*.git* *.csv *.xls *.xlsx bs_config.php keys.php .* README.md"
       - name: Upload Release Asset
-        id: upload-release-asset
+        id: upload-website-zip
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,7 +66,7 @@ jobs:
           asset_name: beaconstat-${{ steps.extract_branch.outputs.branch }}.zip
           asset_content_type: application/zip
       - name: Upload Release Asset
-        id: upload-release-asset
+        id: upload-changelog
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
