@@ -9,8 +9,6 @@
 <?php
 require_once '../../connect.php';
 require_once '../../functions.php';
-// Perform DB backup first
-include '../db_backup.php';
 
 // Ottieni il file più recente
 $xlsxFile = "uploads/" . GetMostRecentFile('uploads', "xls|xlsx");

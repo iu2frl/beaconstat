@@ -61,7 +61,7 @@
             // die("Errore nella query $query: " . mysqli_error());
             WaitForPopup("Query returned error", "../index.php");
         } else {
-            SendTelegramMessage("Beacon '" . $beaconId . "' was deleted");
+            SendTelegramMessage("Beacon: '" . $row["callsign"] . " with id: " . $beaconId . "' was deleted");
             echo "<p>Beacon deleted ";
             echo "</p>";
         }
