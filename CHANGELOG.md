@@ -6,6 +6,8 @@
 - Added changelog parser
 - Improved `index.php` footer
 - Set default query of `index.php` to `ORDER BY 'qrg' ASC`
+- Added locator length check on `analyze_db.php`
+- Backup is now automatically performed before any import
 
 ### 2022/11/29
 - Added import from RSGB Beacons CSV
@@ -20,7 +22,7 @@
 - Fixed a bug in `mapfull.php` which lead to no beacons shown in case of a malformed locator
 
 ### 2022/09/30
-- Created public repository on IU2FRL
+- Created public repository on IU2FRL GitHub profile
 
 ### 2022/09/29
 - Improving W3C validation on `index.php`

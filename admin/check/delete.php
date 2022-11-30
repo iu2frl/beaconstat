@@ -15,6 +15,7 @@
         WaitForPopup("Errore, parametro non corretto", "../index.php");
     }
     require_once '../../connect.php';
+    require_once '../../functions.php';
 
     $stmt = $db->prepare("SELECT `callsign` FROM `bs_beacon` WHERE `id`=?");
     if ($stmt == FALSE) {
