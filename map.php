@@ -1,6 +1,7 @@
 <html lang="en">
 
 <head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <?php
     include_once "./config/bs_config.php";
     require_once './functions.php';
