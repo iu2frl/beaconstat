@@ -30,6 +30,11 @@
         </tr>
         <tr>
             <td>
+                <a href="./myphp-backup-files/list.php" class="button"><br>View DB Backups</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <a href="../index.php" class="button"><br>Back</a>
             </td>
         </tr>

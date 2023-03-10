@@ -1,6 +1,9 @@
 # The Beaconstat Project
 ## Changelog
 
+### 2023/03/10
+- Added file indexer to DB backups
+
 ### 2022/11/30
 - Added manual `CHANGELOG.md`
 - Added changelog parser
