@@ -62,7 +62,7 @@ if ($sheetNames) {
                 $callsign = substr(strtoupper(strval($fields[1])), 0, 10);
                 if ($qrg<(double)50.0) {
                     // Controllo che la frequenza sia almeno dei 6m
-                    HtmlPrint("Beacon: " . $callsign . " is invalid and will be skipped");
+                    HtmlPrint("Beacon: " . $callsign . " has frequency below 50MHz (" . htmlspecialchars($qrg) . ") and will be skipped");
                     $bcnSkipped += 1;
                 } else {
                     $band = floor($qrg);
