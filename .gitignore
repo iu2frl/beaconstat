@@ -46,3 +46,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 writable/debugbar/*.json
 writable/logs/*.log
+writable/session/*

@@ -6,6 +6,15 @@ use App\Models\BeaconModel;
 
 class Home extends BaseController
 {
+    public function pageContent($data): string
+    {
+        // This method can be used to render specific content based on the data provided
+        // For now, it just returns a simple view with the data
+        return view('layouts/header', ['title' => 'Homepage']) .
+                view('beacons_per_band', $data) .
+                view('layouts/footer');
+    }
+
     public function index(): string
     {
         $model = new BeaconModel();
@@ -22,7 +31,7 @@ class Home extends BaseController
         ];
 
         // Return the beacons_per_band view with the data
-        return view('beacons_per_band', $data);
+        return $this->pageContent($data);
     }
 
     /**
@@ -51,6 +60,6 @@ class Home extends BaseController
         ];
 
         // Return the beacons_per_band view with the data
-        return view('beacons_per_band', $data);
+        return $this->pageContent($data);
     }
 }
