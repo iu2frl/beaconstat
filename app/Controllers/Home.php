@@ -11,7 +11,7 @@ class Home extends BaseController
         // This method can be used to render specific content based on the data provided
         // For now, it just returns a simple view with the data
         return view('layouts/header', ['title' => 'Homepage']) .
-                view('beacons_per_band', $data) .
+                view('beacons/beacons_per_band', $data) .
                 view('layouts/footer');
     }
 

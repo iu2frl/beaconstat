@@ -50,7 +50,7 @@ class Beacons extends Controller
         ];
         
         return view('layouts/header', ['title' => 'Homepage']) .
-                view('beacon_details', $data) .
+                view('beacons/beacon_details', $data) .
                 view('layouts/footer');
     }
 }
