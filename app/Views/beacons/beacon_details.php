@@ -1,39 +1,35 @@
 <div class="container my-4">
-    <h1><?= esc($beacon['callsign']) ?> Beacon Details</h1>
+    <h1><?= lang('App.beacon_details', [esc($beacon['callsign'])]) ?></h1>
     
     <div class="card mb-4">
         <div class="card-header">
-            <h2 class="h4 mb-0">Beacon Information</h2>
+            <h2 class="h4 mb-0"><?= lang('App.beacon_information') ?></h2>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <p><strong>Callsign:</strong> <?= esc($beacon['callsign']) ?></p>
-                    <p><strong>QRG:</strong> <?= esc($beacon['qrg']) ?> MHz</p>
-                    <p><strong>QTH:</strong> <?= esc($beacon['qth'] ?? 'N/A') ?></p>
-                    <p><strong>Locator:</strong> <?= esc($beacon['locator']) ?></p>
-                    <p><strong>Mode:</strong> <?= esc($beacon['mode'] ?? 'N/A') ?></p>
+                    <p><strong><?= lang('App.callsign') ?>:</strong> <?= esc($beacon['callsign']) ?></p>
+                    <p><strong><?= lang('App.qrg') ?>:</strong> <?= esc($beacon['qrg']) ?> <?= lang('App.mhz') ?></p>
+                    <p><strong><?= lang('App.qth') ?>:</strong> <?= esc($beacon['qth'] ?? lang('App.na')) ?></p>
+                    <p><strong><?= lang('App.locator') ?>:</strong> <?= esc($beacon['locator']) ?></p>
+                    <p><strong><?= lang('App.mode') ?>:</strong> <?= esc($beacon['mode'] ?? lang('App.na')) ?></p>
                 </div>
                 <div class="col-md-6">
-                    <p><strong>QTF:</strong> <?= esc($beacon['qtf'] ?? 'N/A') ?></p>
-                    <p><strong>Power:</strong> <?= esc($beacon['power'] ?? 'N/A') ?> W</p>
-                    <p><strong>Antenna:</strong> <?= esc($beacon['antenna'] ?? 'N/A') ?></p>
-                    <p><strong>Status:</strong> <span class="badge <?= $beacon['status'] ? 'bg-success' : 'bg-danger' ?>"><?= $beacon['status'] ? 'Active' : 'Inactive' ?></span></p>
-                    <p><strong>Height ASL:</strong> <?= esc($beacon['asl'] ?? 'N/A') ?> m</p>
+                    <p><strong><?= lang('App.qtf') ?>:</strong> <?= esc($beacon['qtf'] ?? lang('App.na')) ?></p>
+                    <p><strong><?= lang('App.power') ?>:</strong> <?= esc($beacon['power'] ?? lang('App.na')) ?> <?= lang('App.watts') ?></p>
+                    <p><strong><?= lang('App.antenna') ?>:</strong> <?= esc($beacon['antenna'] ?? lang('App.na')) ?></p>
+                    <p><strong><?= lang('App.status') ?>:</strong> <span class="badge <?= $beacon['status'] ? 'bg-success' : 'bg-danger' ?>"><?= $beacon['status'] ? lang('App.active') : lang('App.inactive') ?></span></p>
+                    <p><strong><?= lang('App.height_asl') ?>:</strong> <?= esc($beacon['asl'] ?? lang('App.na')) ?> <?= lang('App.meters') ?></p>
                 </div>
             </div>
             
             <?php
             // Convert locator to latitude/longitude for map display
-            // This is a placeholder - in a real implementation, you would use a proper function
-            // to convert Maidenhead locator to lat/long coordinates
             if (!empty($beacon['locator'])): 
-                // Assuming we have lat/long data calculated from locator
-                // In a real implementation, this would need to be properly calculated
             ?>
             <div class="mt-4">
-                <h3 class="h5">Map Location</h3>
-                <p>Please note: the map is based on the provided locator (<?= esc($beacon['locator']) ?>), a 6-digits locator produces an approximation up to ~200 meters, then coordinates calculation might introduce additional tolerance.</p>
+                <h3 class="h5"><?= lang('App.map_location') ?></h3>
+                <p><?= lang('App.map_disclaimer', [esc($beacon['locator'])]) ?></p>
                 <div id="beaconMap" style="height: 300px;"></div>
             </div>
             <?php endif; ?>
@@ -42,23 +38,23 @@
     
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h2 class="h4 mb-0">Reception Reports</h2>
-            <a href="<?= site_url('reports/add/'.$beacon['id']) ?>" class="btn btn-primary btn-sm">Add Report</a>
+            <h2 class="h4 mb-0"><?= lang('App.reception_reports') ?></h2>
+            <a href="<?= site_url('reports/add/'.$beacon['id']) ?>" class="btn btn-primary btn-sm"><?= lang('App.add_report') ?></a>
         </div>
         <div class="card-body">
             <?php if (empty($reports)): ?>
-                <div class="alert alert-info">No reports have been submitted for this beacon yet.</div>
+                <div class="alert alert-info"><?= lang('App.no_reports') ?></div>
             <?php else: ?>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Reporter</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                                <th>Antenna</th>
-                                <th>Note</th>
+                                <th><?= lang('App.date') ?></th>
+                                <th><?= lang('App.reporter') ?></th>
+                                <th><?= lang('App.location') ?></th>
+                                <th><?= lang('App.status') ?></th>
+                                <th><?= lang('App.antenna') ?></th>
+                                <th><?= lang('App.note') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,7 +63,7 @@
                                 <td><?= date('Y-m-d H:i', strtotime($report['date'])) ?></td>
                                 <td><?= esc($report['callsign']) ?></td>
                                 <td><?= esc($report['locator']) ?></td>
-                                <td><?= $report['status'] ? '<span class="badge bg-success">Received</span>' : '<span class="badge bg-danger">Not received</span>' ?></td>
+                                <td><?= $report['status'] ? '<span class="badge bg-success">'.lang('App.received').'</span>' : '<span class="badge bg-danger">'.lang('App.not_received').'</span>' ?></td>
                                 <td><?= esc($report['antenna']) ?></td>
                                 <td><?= esc($report['note'] ?? '') ?></td>
                             </tr>
@@ -137,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add beacon marker
         L.marker([coordinates.lat, coordinates.lng])
             .addTo(map)
-            .bindPopup('<?= esc($beacon['callsign']) ?> - <?= esc($beacon['qrg']) ?> MHz');
+            .bindPopup('<?= esc($beacon['callsign']) ?> - <?= esc($beacon['qrg']) ?> <?= lang('App.mhz') ?>');
     }
 });
 </script>

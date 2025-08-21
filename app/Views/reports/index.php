@@ -1,27 +1,27 @@
 <div class="container my-4">
-    <h1 class="mb-4">Recent Reception Reports</h1>
+    <h1 class="mb-4"><?= lang('App.recent_reports') ?></h1>
     
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <h2 class="h5 mb-0">Recent Reports</h2>
+            <h2 class="h5 mb-0"><?= lang('App.recent_reports') ?></h2>
         </div>
         
         <div class="card-body">
             <?php if (empty($reports)): ?>
-                <div class="alert alert-info">No reception reports found.</div>
+                <div class="alert alert-info"><?= lang('App.no_reception_reports') ?></div>
             <?php else: ?>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Beacon</th>
-                                <th>Frequency</th>
-                                <th>Reporter</th>
-                                <th>Location</th>
-                                <th>Status</th>
-                                <th>Antenna</th>
-                                <th>Note</th>
+                                <th><?= lang('App.date') ?></th>
+                                <th><?= lang('App.beacon') ?></th>
+                                <th><?= lang('App.frequency') ?></th>
+                                <th><?= lang('App.reporter') ?></th>
+                                <th><?= lang('App.location') ?></th>
+                                <th><?= lang('App.status') ?></th>
+                                <th><?= lang('App.antenna') ?></th>
+                                <th><?= lang('App.note') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,13 +33,13 @@
                                         <?= esc($report['beacon_callsign']) ?>
                                     </a>
                                 </td>
-                                <td><?= number_format($report['beacon_qrg'], 3) ?> MHz</td>
+                                <td><?= number_format($report['beacon_qrg'], 3) ?> <?= lang('App.mhz') ?></td>
                                 <td><?= esc($report['callsign']) ?></td>
                                 <td><?= esc($report['locator']) ?></td>
                                 <td>
                                     <?= $report['status'] ? 
-                                        '<span class="badge bg-success">Received</span>' : 
-                                        '<span class="badge bg-danger">Not received</span>' 
+                                        '<span class="badge bg-success">'.lang('App.received').'</span>' : 
+                                        '<span class="badge bg-danger">'.lang('App.not_received').'</span>' 
                                     ?>
                                 </td>
                                 <td><?= esc($report['antenna']) ?></td>
@@ -54,6 +54,6 @@
     </div>
     
     <div class="mt-4">
-        <a href="<?= site_url() ?>" class="btn btn-primary">Back to Home</a>
+        <a href="<?= site_url() ?>" class="btn btn-primary"><?= lang('App.back_to_home') ?></a>
     </div>
 </div>

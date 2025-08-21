@@ -2,11 +2,10 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
 use App\Models\BeaconModel;
 use App\Models\ReportModel;
 
-class Beacons extends Controller
+class Beacons extends BaseController
 {    
     /**
      * Display beacon details by ID
@@ -49,7 +48,7 @@ class Beacons extends Controller
             'reports' => $reports
         ];
         
-        return view('layouts/header', ['title' => 'Homepage']) .
+        return view('layouts/header', ['title' => $data['title']]) .
                 view('beacons/beacon_details', $data) .
                 view('layouts/footer');
     }
