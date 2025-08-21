@@ -1,52 +1,43 @@
-# CodeIgniter 4 Application Starter
+# Beaconstat 2.0
 
-## What is CodeIgniter?
+Welcome to the next generation of the Beaconstat project.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+This second version was rewritten from scratches, but keeps the same database structure, so you can safely upgrade your existing application.
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+The app is now built with CodeIgniter v4 which provides better security and easier developent.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+> [!WARNING]
+> This is still a work in progress and it is not considered stable yet, a lot of features are still missing
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+## Features
 
-## Installation & updates
-
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
-
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+- [x] Multi-language support
+- [ ] Supports user registration
+- [ ] Every user can submit a new beacon
+- [ ] Every user can submit a new report
+- [ ] Better beacons map with both valid and invalid beacons
+- [ ] Automatically calculated bearings for each beacon based on user's location
+- [ ] New administration panel
+      - [ ] Users management
+      - [ ] Beacons management
+      - [ ] Database backup/restore
+      - [ ] Customizable notifications
 
 ## Setup
 
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
-## Important Change with index.php
+Make sure to include:
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+```
+app.baseURL = 'http://beaconstat.localhost/'
+app.contactEmail = 'contact@beaconstat.com'
+database.default.hostname = localhost
+database.default.database = database-name
+database.default.username = database-user
+database.default.password = database-pass
+```
 
 ## Server Requirements
 
