@@ -41,10 +41,6 @@
                         <a class="nav-link" href="<?= base_url('map') ?>">Map</a>
                     </li>
                 </ul>
-                
-                <div class="d-flex">
-                    <a href="<?= base_url('report/add') ?>" class="btn btn-success">Add Report</a>
-                </div>
             </div>
         </div>
     </nav>
