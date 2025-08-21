@@ -75,10 +75,11 @@ class ReportModel extends Model
      * @param int $beaconId The ID of the beacon
      * @return array Array of reports for the specified beacon
      */
-    public function getReportsByBeacon(int $beaconId)
+    public function getReportsByBeaconId(int $beaconId)
     {
         return $this->where('beacon_id', $beaconId)
                     ->orderBy('date', 'DESC')
+                    ->limit(100)
                     ->findAll();
     }
 
@@ -92,6 +93,7 @@ class ReportModel extends Model
     {
         return $this->where('callsign', $callsign)
                     ->orderBy('date', 'DESC')
+                    ->limit(100)
                     ->findAll();
     }
 

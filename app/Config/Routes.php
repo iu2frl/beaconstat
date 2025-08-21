@@ -7,3 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/home/showBand', 'Home::showBand');
+$routes->get('beacons/view/(:num)', 'Beacons::view/$1');

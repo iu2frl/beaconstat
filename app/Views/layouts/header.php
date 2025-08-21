@@ -12,10 +12,7 @@
     
     <!-- Bootstrap CSS -->
     <link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
-    
+        
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= base_url('favicon.ico') ?>" type="image/x-icon">
 </head>

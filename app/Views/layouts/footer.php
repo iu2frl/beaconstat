@@ -32,8 +32,5 @@
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
-    
-    <!-- Custom JavaScript -->
-    <script src="<?= base_url('assets/js/script.js') ?>"></script>
 </body>
 </html>
