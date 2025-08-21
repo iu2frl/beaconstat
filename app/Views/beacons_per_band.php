@@ -63,7 +63,7 @@
                         <tbody>
                             <?php foreach ($confirmedBeacons as $beacon): ?>
                                 <tr>
-                                    <td><strong><?= esc($beacon['callsign']) ?></strong></td>
+                                    <td><strong><a href="<?= site_url('beacons/view/' . $beacon['id']) ?>"><?= esc($beacon['callsign']) ?></a></strong></td>
                                     <td><?= number_format($beacon['qrg'], 3) ?> MHz</td>
                                     <td><?= esc($beacon['locator']) ?></td>
                                     <td><?= esc($beacon['qth']) ?></td>
@@ -116,7 +116,7 @@
                         <tbody>
                             <?php foreach ($unconfirmedBeacons as $beacon): ?>
                                 <tr>
-                                    <td><strong><?= esc($beacon['callsign']) ?></strong></td>
+                                    <td><strong><a href="<?= site_url('beacons/view/' . $beacon['id']) ?>"><?= esc($beacon['callsign']) ?></a></strong></td>
                                     <td><?= number_format($beacon['qrg'], 3) ?> MHz</td>
                                     <td><?= esc($beacon['locator']) ?></td>
                                     <td><?= esc($beacon['qth']) ?></td>
