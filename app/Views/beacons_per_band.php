@@ -5,9 +5,9 @@
  */
 ?>
 
+<br>
+
 <div class="container">
-    <h1 class="my-4">Beacons on <?= $bandName ?? '144' ?> MHz band</h1>
-    
     <!-- Band Selection Dropdown -->
     <div class="row mb-4">
         <div class="col-md-6 offset-md-3">
@@ -34,6 +34,8 @@
             </div>
         </div>
     </div>
+
+    <h2 class="my-4">Displaying all beacons on the <?= $bandName ?? '144' ?> MHz band</h1>
     
     <!-- Confirmed Beacons Section -->
     <div class="card mb-5">
