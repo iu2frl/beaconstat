@@ -42,6 +42,16 @@
                     </li>
                 </ul>
             </div>
+            <!-- Language Switcher -->
+            <div class="dropdown">
+                <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <?= session()->get('locale') === 'fr' ? 'Français' : 'English' ?>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <li><a class="dropdown-item" href="<?= base_url('language/switch/en') ?>">English</a></li>
+                    <li><a class="dropdown-item" href="<?= base_url('language/switch/fr') ?>">Français</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
