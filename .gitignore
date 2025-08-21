@@ -10,6 +10,7 @@ old/*
 # CodeIgniter
 
 .env
+*.log
 
 .DS_Store
 

@@ -74,7 +74,7 @@ class CreateBeaconsTable extends Migration
             ],
         ]);
         
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
         $this->forge->createTable('bs_beacon', true);
         
         // Set table engine to MyISAM and charset to latin1

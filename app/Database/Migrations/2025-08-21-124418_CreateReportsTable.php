@@ -9,9 +9,8 @@ class CreateReportsTable extends Migration
     public function up()
     {
         $this->forge->addField([
-            'data' => [
+            'date' => [
                 'type'       => 'DATETIME',
-                'default'    => 'CURRENT_TIMESTAMP',
             ],
             'beacon_id' => [
                 'type'       => 'BIGINT',
@@ -46,7 +45,7 @@ class CreateReportsTable extends Migration
             ],
         ]);
         
-        $this->forge->addKey('id', true);
+        $this->forge->addPrimaryKey('id');
         $this->forge->createTable('bs_report', true);
         
         // Set table engine to MyISAM and charset to latin1
