@@ -22,3 +22,6 @@ applyTo: "**"
 - Add blank line between different blocks of code to improve readability
 - Add some comments to the code when some steps are not obvious or custom functions are used/created
 - Do not add comments to simple operations that are easy to read
+
+## Others
+- When adding a component which needs a route, explictly specify that and include the route to configure

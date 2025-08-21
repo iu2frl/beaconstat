@@ -37,32 +37,11 @@
                     <li class="nav-item">
                         <a class="nav-link <?= current_url() == base_url() ? 'active' : '' ?>" href="<?= base_url() ?>">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="bandDropdown" role="button" data-bs-toggle="dropdown">
-                            Bands
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php if (isset($listOfBands) && is_array($listOfBands)): ?>
-                                <?php foreach ($listOfBands as $band): ?>
-                                    <li>
-                                        <a class="dropdown-item" href="<?= base_url('home/showBand?band=' . $band) ?>">
-                                            <?= $band ?> MHz
-                                        </a>
-                                    </li>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <li><a class="dropdown-item" href="<?= base_url('home/showBand?band=144') ?>">144 MHz</a></li>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('reports') ?>">Reports</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('map') ?>">Map</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('about') ?>">About</a>
                     </li>
                 </ul>
                 
