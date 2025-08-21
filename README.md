@@ -39,6 +39,36 @@ database.default.username = database-user
 database.default.password = database-pass
 ```
 
+## Development
+
+1. Clone this repository
+2. Set Apache to the right folder using a virtual host
+3. Configure the `.env` file as in the [setup](#setup) chapter
+
+### Apache `httpd.conf`
+
+```conf
+<Directory "C:\Users\Administrator\Documents\GitHub\beaconstat\public">
+   Order allow,deny
+   Allow from all
+   # New directive needed in Apache 2.4.3: 
+   Require all granted
+   AllowOverride All
+</Directory>
+```
+
+### Apache `https-vhosts.conf`
+
+```conf
+<VirtualHost *:80>
+    ServerAdmin beaconstat.localhost
+    DocumentRoot "C:\Users\Administrator\Documents\GitHub\beaconstat\public"
+    ServerName beaconstat.localhost
+    ErrorLog "logs/beaconstat-localhost-error.log"
+    CustomLog "logs/beaconstat-localhost-access.log" common
+</VirtualHost>
+```
+
 ## Server Requirements
 
 PHP version 8.1 or higher is required, with the following extensions installed:
