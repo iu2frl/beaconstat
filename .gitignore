@@ -9,6 +9,8 @@ old/*
 
 # CodeIgniter
 
+.env
+
 .DS_Store
 
 application/cache/*
