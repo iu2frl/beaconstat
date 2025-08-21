@@ -17,3 +17,5 @@ $routes->get('language/switch/(:segment)', 'Language::switch/$1');
 $routes->get('reports', 'Reports::index');
 $routes->get('reports/add/(:num)', 'Reports::add/$1');
 $routes->post('reports/add/(:num)', 'Reports::add/$1');
+// Map route
+$routes->get('map', 'Map::index');

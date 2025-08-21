@@ -85,4 +85,12 @@ return [
     'mhz'                    => 'MHz',
     'meters'                 => 'm',
     'watts'                  => 'W',
+
+    // Map page
+    'beacon_map' => 'Carte des Balises',
+    'map_description' => 'Cette carte montre toutes les balises actives dans la base de données. Les différentes couleurs représentent différentes bandes de fréquence.',
+    'legend' => 'Bandes de Fréquence',
+    'total_beacons' => 'Total des Balises',
+    'map_location' => 'Emplacement sur la Carte',
+    'map_disclaimer' => 'Emplacement basé sur le localisateur %s. L\'emplacement réel peut varier.',
 ];

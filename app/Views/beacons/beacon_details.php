@@ -81,43 +81,16 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""/>
+<!-- Add Custom Map CSS -->
+<link rel="stylesheet" href="<?= base_url('assets/css/beacon-map.css') ?>" />
 <!-- Add Leaflet JavaScript -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
+<!-- Add Custom Map JavaScript -->
+<script src="<?= base_url('assets/js/beacon-map.js') ?>"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // This function converts Maidenhead grid locator to lat/long
-    // Implementation based on common algorithms
-    function locatorToLatLng(locator) {
-        if (!locator || locator.length < 4) return null;
-        
-        locator = locator.toUpperCase();
-        
-        // Basic conversion for 4 or 6 character locator
-        let lng = (locator.charCodeAt(0) - 65) * 20 - 180;
-        let lat = (locator.charCodeAt(1) - 65) * 10 - 90;
-        
-        lng += (locator.charCodeAt(2) - 48) * 2;
-        lat += (locator.charCodeAt(3) - 48) * 1;
-        
-        // More precision with 6 character locator
-        if (locator.length >= 6) {
-            lng += (locator.charCodeAt(4) - 65) * (2/24);
-            lat += (locator.charCodeAt(5) - 65) * (1/24);
-            
-            // Add offset to center of the square
-            lng += (2/24) / 2;
-            lat += (1/24) / 2;
-        } else {
-            // Add offset to center of the square
-            lng += 1;
-            lat += 0.5;
-        }
-        
-        return { lat, lng };
-    }
-    
     // Get coordinates from locator
     const coordinates = locatorToLatLng('<?= $beacon['locator'] ?>');
     

@@ -85,4 +85,12 @@ return [
     'mhz'                    => 'MHz',
     'meters'                 => 'm',
     'watts'                  => 'W',
+
+    // Map page
+    'beacon_map'             => 'Beacon Map',
+    'map_description'        => 'This map shows all active beacons in the database. Different colors represent different frequency bands.',
+    'legend'                 => 'Frequency Bands',
+    'total_beacons'          => 'Total Beacons count',
+    'map_location'           => 'Map Location',
+    'map_disclaimer'         => 'Location based on grid locator %s. Actual location may vary.',
 ];
