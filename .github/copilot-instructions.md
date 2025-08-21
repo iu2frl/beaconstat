@@ -23,5 +23,65 @@ applyTo: "**"
 - Add some comments to the code when some steps are not obvious or custom functions are used/created
 - Do not add comments to simple operations that are easy to read
 
+## Database data retrieval
+- Always define a Model (if not already in the project) to read and write data to the database, for example:
+```php
+class BeaconModel extends Model
+{
+    protected $table         = 'bs_beacon';
+    protected $primaryKey    = 'id';
+
+    // Rest of the variables here
+
+    // Functions to retrieve data
+    public function getBeaconsByBand($band)
+    {
+        return $this->where('band', $band)
+                    ->orderBy('callsign', 'ASC')
+                    ->findAll();
+    }
+    public function getConfirmedBeaconsByBand($band)
+    {
+        return $this->where(['band' => $band, 'confirmed' => 1])
+                    ->orderBy('callsign', 'ASC')
+                    ->findAll();
+    }
+
+    public function getUnconfirmedBeaconsByBand($band)
+    {
+        return $this->where(['band' => $band, 'confirmed' => 0])
+                    ->orderBy('callsign', 'ASC')
+                    ->findAll();
+    }
+}
+```
+- Always use a Model to read and write data to the databse, for example:
+```php
+use App\Models\BeaconModel;
+class Home extends BaseController
+{
+    public function index(): string
+    {
+        $model = new BeaconModel();
+        $listOfBands = $model->getListOfBands();
+        $confirmedBeacons = $model->getConfirmedBeaconsByBand("144");
+        $unconfirmedBeacons = $model->getUnconfirmedBeaconsByBand("144");
+
+        // Prepare data to send to the view
+        $data = [
+            'bandName' => '144',
+            'confirmedBeacons' => $confirmedBeacons,
+            'unconfirmedBeacons' => $unconfirmedBeacons,
+            'listOfBands' => $listOfBands,
+        ];
+
+        // Return the beacons_per_band view with the data
+        return $this->pageContent($data);
+    }
+}
+```
+
 ## Others
 - When adding a component which needs a route, explictly specify that and include the route to configure
+- When providing code snippets, always specify the path of the file where the code should be placed
+- When creating new pages, it is preferred to create a dedicate Controllers and views to keep each component readable
