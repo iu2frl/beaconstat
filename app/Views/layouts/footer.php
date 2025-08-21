@@ -15,12 +15,14 @@
                         <li><a href="https://github.com/iu2frl/beaconstat" class="text-white-50"><?= lang('App.github') ?></a></li>
                     </ul>
                 </div>
+                <?php if (!empty(config('App')->contactEmail)): ?>
                 <div class="col-md-3">
                     <h5><?= lang('App.contact') ?></h5>
                     <ul class="list-unstyled">
-                        <li><a href="mailto:info@beaconstat.com" class="text-white-50">info@beaconstat.com</a></li>
+                        <li><a href="mailto:<?= config('App')->contactEmail ?>" class="text-white-50"><?= config('App')->contactEmail ?></a></li>
                     </ul>
                 </div>
+                <?php endif; ?>
             </div>
             <hr class="mt-4">
             <div class="text-center">

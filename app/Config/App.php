@@ -149,6 +149,16 @@ class App extends BaseConfig
 
     /**
      * --------------------------------------------------------------------------
+     * Contact Email Address
+     * --------------------------------------------------------------------------
+     *
+     * The email address used for contact information throughout the site.
+     * This can be overridden in the .env file.
+     */
+    public string $contactEmail = '';
+
+    /**
+     * --------------------------------------------------------------------------
      * Force Global Secure Requests
      * --------------------------------------------------------------------------
      *
