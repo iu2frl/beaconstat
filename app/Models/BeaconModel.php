@@ -105,4 +105,26 @@ class BeaconModel extends Model
                     ->orderBy('callsign', 'ASC')
                     ->findAll();
     }
+
+    public function getConfirmedBeaconsByBand($band)
+    {
+        return $this->where(['band' => $band, 'confirmed' => 1])
+                    ->orderBy('callsign', 'ASC')
+                    ->findAll();
+    }
+
+    public function getUnconfirmedBeaconsByBand($band)
+    {
+        return $this->where(['band' => $band, 'confirmed' => 0])
+                    ->orderBy('callsign', 'ASC')
+                    ->findAll();
+    }
+
+    public function getListOfBands()
+    {
+        return $this->distinct()
+                    ->select('band')
+                    ->orderBy('band', 'ASC')
+                    ->findColumn('band');
+    }
 }
