@@ -1,6 +1,11 @@
 # The Beaconstat project
 A powerful and lightweight amateur radio beacon indexer supporting reports listing and custom beacon add by mainteners
 
+## Deprecation notice
+
+> [!WARNING]
+> This version is using raw PHP scripting and it is considered old and unsafe, my efforts are now moving to a more recent and better **Beaconstat 2.0** that will come soon, stay tuned!
+
 ## Credits
 This project was originally developed by IU3GNB and [IU2FRL](https://github.com/iu2frl/) in 2019 (yes, the pandemic year)
 
